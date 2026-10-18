@@ -1,0 +1,34 @@
+[package]
+name = "ch32-game"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ch32-hal = { git = "https://github.com/ch32-rs/ch32-hal", features = [
+    "ch32v003f4u6",
+    "memory-x",
+#    "embassy",
+    "time-driver-tim2",
+    "rt",
+] }
+
+qingke = "0.8"
+qingke-rt = { version = "0.8", features=["highcode"] }
+
+# panic-halt = "1.0"
+critical-section = "1.2"
+
+embedded-hal = "1.0.0"
+
+[profile.release]
+strip = false
+lto = true
+opt-level = "z"
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+opt-level = "z"
+debug-assertions = false
+overflow-checks = false
+panic = "abort"
